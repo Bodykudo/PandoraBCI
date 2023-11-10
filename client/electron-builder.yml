@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: electron-app
+  executableName: pandora-bci
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

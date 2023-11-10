@@ -26,8 +26,12 @@ export default function UploadPage() {
         const allYValuesUnfiltered = outputData['unfiltered'].flatMap((series) =>
           series.data.map((point) => point.y)
         );
+        console.log(`Maximum Y Filtered: ${maxYFiltered}`);
+        console.log(`Minimum Y Filtered: ${minYFiltered}`);
         const maxYUnfiltered = Math.max(...allYValuesUnfiltered);
         const minYUnfiltered = Math.min(...allYValuesUnfiltered);
+        console.log(`Maximum Y Unfiltered: ${maxYUnfiltered}`);
+        console.log(`Minimum Y Unfiltered: ${minYUnfiltered}`);
         state.boundaries.unfiltered = { max: maxYUnfiltered + 10, min: minYUnfiltered - 10 };
 
         state.id++;

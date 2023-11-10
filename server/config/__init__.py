@@ -1,0 +1,3 @@
+APP_HOST = "0.0.0.0"
+APP_PORT = 5000
+ARM_API_URL = "http://192.168.133.37:80"

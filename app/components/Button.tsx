@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity } from 'react-native';
 
 interface Props {
   imgUrl?: any;
@@ -47,6 +47,7 @@ interface RectProps {
   fontSize: number;
   handlePress: any;
   title: string;
+  isDisabled?: boolean;
 }
 
 export function RectButton({
@@ -54,6 +55,7 @@ export function RectButton({
   fontSize,
   handlePress,
   title,
+  isDisabled,
   ...props
 }: RectProps) {
   return (
@@ -66,6 +68,7 @@ export function RectButton({
         ...props,
       }}
       onPress={handlePress}
+      disabled={isDisabled}
     >
       <Text
         style={{

@@ -3,20 +3,43 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  Button,
   Animated,
   Easing,
 } from 'react-native';
-import { DataType } from '../utils/data';
+import { RectButton } from './Button';
+import { useState } from 'react';
+import { Move } from '../types';
 
 type Props = {
-  item: DataType;
+  item: Move;
+  hideButton?: boolean;
 };
 
 const { width, height } = Dimensions.get('window');
 
-const SliderItem = ({ item }: Props) => {
+const SliderItem = ({ item, hideButton = false }: Props) => {
   const translateYImage = new Animated.Value(40);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  async function updateMove(move: number) {
+    const body = {
+      move,
+    };
+
+    const data = {
+      move,
+    };
+
+    setIsUpdating(true);
+    await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/arm/move`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    setIsUpdating(false);
+  }
 
   Animated.timing(translateYImage, {
     toValue: 0,
@@ -42,10 +65,17 @@ const SliderItem = ({ item }: Props) => {
         ]}
       />
       <View style={styles.content}>
-        <Text style={styles.title}>{item.id - 1}</Text>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
-        <Button title='Play Action' />
+        {!hideButton && (
+          <RectButton
+            minWidth={180}
+            fontSize={14}
+            handlePress={() => updateMove(item.id)}
+            title='Play Action'
+            isDisabled={isUpdating}
+          />
+        )}
       </View>
     </View>
   );
@@ -59,8 +89,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    // fontSize: 200,
-    // textAlign: 'center',
     flex: 0.6,
   },
   content: {

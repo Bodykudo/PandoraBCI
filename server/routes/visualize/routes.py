@@ -1,6 +1,6 @@
 from flask import jsonify, request
 import json
-from endpoints import api_blueprint
+from routes import api_blueprint
 from utils.data import convert_np_int64_to_int, perform_ica_denoising, read_data
 from config.constants import channel_names
 import numpy as np
@@ -8,7 +8,7 @@ import numpy as np
 from utils.visualize import generate_eeg_data
 
 
-@api_blueprint.route("/visualize", methods=["POST"])
+@api_blueprint.route("/api/visualize", methods=["POST"])
 def visualize():
     # Check if a file is included in the request
     if "file" not in request.files:
@@ -16,7 +16,6 @@ def visualize():
         return jsonify({"error": "No file provided"}), 400
 
     file = request.files["file"]
-    print("File Received")
 
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400

@@ -23,6 +23,19 @@ export default function RealtimeChart({ id, title, group, height, isPaused, filt
   );
   const [currentIndex, setCurrentIndex] = useState(1);
 
+  useEffect(() => {
+    if (snap.isReset) {
+      setSeries(
+        snap.data['filtered'].map((item) => ({
+          name: item.name,
+          data: []
+        }))
+      );
+      setCurrentIndex(1);
+      state.isReset = false;
+    }
+  }, [snap.isReset]);
+
   const [options, setOptions] = useState({
     chart: {
       id,
@@ -86,8 +99,8 @@ export default function RealtimeChart({ id, title, group, height, isPaused, filt
       range: 20
     },
     yaxis: {
-      min: snap.boundaries[filtered ? 'filtered' : 'unfiltered'].min,
-      max: snap.boundaries[filtered ? 'filtered' : 'unfiltered'].max
+      // min: snap.boundaries[filtered ? 'filtered' : 'unfiltered'].min,
+      // max: snap.boundaries[filtered ? 'filtered' : 'unfiltered'].max
     }
   });
 

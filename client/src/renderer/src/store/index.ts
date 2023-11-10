@@ -6,6 +6,7 @@ const state: AppState = proxy({
   files: [],
   isUploaded: false,
   isUploading: false,
+  isReset: false,
   data: {},
   boundaries: {
     filtered: { max: 0, min: 0 },

@@ -1,8 +1,8 @@
 import { View, StyleSheet, Animated, Dimensions } from 'react-native';
-import { DataType } from '../utils/data';
+import { Move } from '../types';
 
 type Props = {
-  data: DataType[];
+  data: Move[];
   scrollX: Animated.Value;
 };
 

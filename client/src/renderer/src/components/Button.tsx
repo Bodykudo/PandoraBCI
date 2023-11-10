@@ -27,7 +27,7 @@ export default function Button({
     >
       {title && title}
       {Icon && <Icon size={28} />}
-      {tooltipText && <Tooltip id={`btn_${tooltipText}`} className="z-10" />}
+      {tooltipText && <Tooltip id={`btn_${tooltipText}`} className="z-50" />}
     </button>
   );
 }

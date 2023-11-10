@@ -13,6 +13,10 @@ export default function ChartsPage() {
     state.isUploaded = false;
   };
 
+  const handleReset = () => {
+    state.isReset = true;
+  };
+
   return (
     <div className="flex justify-center flex-col mt-4">
       <div className="flex flex-row self-center justify-between w-full max-w-6xl items-center gap-2">
@@ -32,7 +36,7 @@ export default function ChartsPage() {
           />
           <Button
             icon={BiReset}
-            clickHandler={() => setIsPaused((pause) => !pause)}
+            clickHandler={handleReset}
             size="small"
             tooltipText="Reset EEG Signal"
           />

@@ -1,4 +1,3 @@
-import { View, Button, SafeAreaView } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { RectButton } from './Button';
 

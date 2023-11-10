@@ -9,6 +9,7 @@ export interface AppState {
   files: FileType[];
   isUploaded: boolean;
   isUploading: boolean;
+  isReset: boolean;
   data: Dataset | {};
   boundaries: Boundaries;
 }

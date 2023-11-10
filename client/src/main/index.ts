@@ -2,19 +2,18 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
-import { createReadStream } from 'fs';
-import { File } from 'buffer';
+import { handleUploadFile } from '../actions/uploadService';
 
 let mainWindow: BrowserWindow;
 
-function createWindow(): void {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...{ icon },
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: true,
@@ -73,31 +72,8 @@ app.on('window-all-closed', () => {
   }
 });
 
-function streamToBuffer(stream) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    stream.on('data', (chunk: never) => chunks.push(chunk));
-    stream.on('end', () => resolve(Buffer.concat(chunks)));
-    stream.on('error', reject);
-  });
-}
-
 ipcMain.on('upload:data', async (_, args) => {
-  var formData = new FormData();
-  const fileStream = createReadStream(args.file);
-  const fileData = await streamToBuffer(fileStream);
-
-  // @ts-ignore
-  const file = new File([fileData], args.file);
-
-  // @ts-ignore
-  formData.append('file', file);
-  formData.append('name', 'file');
-
-  const response = await fetch('http://192.168.1.3:5000/visualize', {
-    method: 'POST',
-    body: formData
-  });
-  const responseJson = await response.json();
-  mainWindow.webContents.send('upload:done', { data: responseJson });
+  const result = await handleUploadFile(args.file);
+  mainWindow.webContents.send('upload:done', { data: result });
+  return true;
 });

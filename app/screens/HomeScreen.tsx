@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { SafeAreaView, ActivityIndicator, Image, View } from 'react-native';
+import { ActivityIndicator, Image, View, StyleSheet } from 'react-native';
 import { RectButton } from '../components/Button';
 import FilePicker from '../components/FilePicker';
 import { useNavigation } from '@react-navigation/native';
 import { DocumentPickerResult } from 'expo-document-picker';
+import Layout from '../components/Layout';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -27,10 +28,16 @@ const HomeScreen = () => {
         formData.append('file', file);
       }
       setIsLoading(true);
-      const response = await fetch('http://192.168.1.3:5000/predict', {
-        method: 'POST',
-        body: formData,
-      });
+      const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+      console.log(apiUrl);
+
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}/api/predict`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
 
       const responseJson = await response.json();
       setIsLoading(false);
@@ -43,42 +50,19 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        alignItems: 'center',
-        flex: 1,
-      }}
-    >
+    <Layout>
       {isLoading && (
-        <View
-          style={{
-            position: 'absolute',
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            width: '100%',
-            height: '100%',
-            zIndex: 100,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ActivityIndicator size='large' />
+        <View style={styles.loading}>
+          <ActivityIndicator size='large' color='#C6013F' />
         </View>
       )}
       <Image
         source={require('../assets/logo2.png')}
         resizeMode='contain'
-        style={{ width: 200, height: 80 }}
+        style={styles.logo}
       />
 
-      <View
-        style={{
-          marginVertical: 'auto',
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 32,
-        }}
-      >
+      <View style={styles.buttonsList}>
         <FilePicker title='Upload EEG Signal' handleFile={handleUploadFile} />
         <RectButton
           minWidth={240}
@@ -88,8 +72,28 @@ const HomeScreen = () => {
           title='Control Robotic Arm'
         />
       </View>
-    </SafeAreaView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    width: '100%',
+    height: '100%',
+    zIndex: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: { width: 400, height: 160 },
+  buttonsList: {
+    marginVertical: 'auto',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 32,
+  },
+});
 
 export default HomeScreen;

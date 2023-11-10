@@ -4,13 +4,11 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  ViewToken,
-  SafeAreaView,
 } from 'react-native';
-import { data } from '../utils/data';
+import { moves } from '../utils/data';
 import SliderItem from './SliderItem';
 import Pagination from './Pagination';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 type Props = {};
 
@@ -37,7 +35,7 @@ const Slider = (props: Props) => {
   return (
     <View>
       <FlatList
-        data={data}
+        data={moves}
         renderItem={({ item }) => <SliderItem item={item} />}
         horizontal
         pagingEnabled
@@ -45,7 +43,7 @@ const Slider = (props: Props) => {
         showsHorizontalScrollIndicator={false}
         onScroll={handleOnScroll}
       />
-      <Pagination data={data} scrollX={scrollX} />
+      <Pagination data={moves} scrollX={scrollX} />
     </View>
   );
 };
