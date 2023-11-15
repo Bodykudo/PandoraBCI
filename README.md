@@ -130,10 +130,10 @@ We would like to acknowledge the following individuals for their contributions t
         <img
           src="https://avatars.githubusercontent.com/u/101353088?v=4"
           width="150px;"
-          alt="Mahmouad Ali"
+          alt="Mahmoud Mohamed"
         />
         <br />
-        <sub><b>Mahmouad Ali</b></sub></a
+        <sub><b>Mahmoud Mohamed</b></sub></a
       >
     </td>
     <td align="center">
