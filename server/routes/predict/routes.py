@@ -26,7 +26,7 @@ def predict():
             data = {"data": result[:50]}
             json_data = json.dumps(data)
             response = requests.post(
-                f"{ARM_API_URL}/post", data=json_data, headers=headers
+                f"{ARM_API_URL}/predict", data=json_data, headers=headers
             )
             if response.status_code == 200:
                 return jsonify(
