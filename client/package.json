@@ -1,10 +1,10 @@
 {
   "name": "pandora-bci",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "PandoraBCI: Real-time plots on EEG data collected from human brains.",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://www.electronjs.org",
+  "author": "Pandora",
+  "homepage": "",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -24,9 +24,7 @@
     "@electron-toolkit/utils": "^2.0.0",
     "apexcharts": "^3.44.0",
     "axios": "^1.6.0",
-    "chart.js": "^4.4.0",
     "electron-updater": "^6.1.1",
-    "random": "^4.1.0",
     "react-apexcharts": "^1.4.1",
     "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.4.1",
